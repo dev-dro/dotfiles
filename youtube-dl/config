@@ -1,0 +1,12 @@
+# verbose
+--verbose
+
+# thumbnails
+--embed-thumbnail
+
+# save local
+--output ~/Videos/youtube/%(title)s.%(ext)s
+
+# resolution
+--format bestvideo[ext=mp4][height<1200]+bestaudio[ext=m4a]/bestvideo[ext=webm][height<1200]+bestaudio[ext=webm]/bestvideo[height<1200]+bestaudio/best[height<1200]/best
+

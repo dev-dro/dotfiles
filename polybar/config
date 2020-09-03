@@ -1,0 +1,305 @@
+[colors]
+background = #2E3440
+foreground = #D8DEE9
+
+primary = #3B4252
+secondary = #434C5E
+tertiary = #4C566A
+alert = #81A1C1
+
+[bar/base]
+monitor = ${env:MONITOR}
+monitor-strict = false
+
+fixed-center = true
+
+width = 100%
+height = 24
+
+offset-x = 0
+offset-y = 0
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+radius = 0.0
+
+line-size = 0
+line-color = ${colors.background}
+
+border-size = 0
+border-color = 
+
+padding = 0
+
+module-margin = 1
+
+font-0 = "DejaVu Sans Mono:style=Bold:size=9"
+font-1 = "DejaVuSansMono Nerd Font:style=Bold:size=10"
+
+tray-position = right
+tray-detached = false
+tray-maxsize = 16
+tray-padding = 4
+tray-background = ${root.background}
+tray-offset-x = 0
+tray-offset-y = 0
+tray-scale = 1.0
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/i3bar]
+inherit = bar/base
+modules-left = i3 
+modules-center = 
+modules-right = xkeyboard backlight pulseaudio wifi ethernet bluetooth memory cpu temperature battery date 
+
+[bar/bspwm-bar]
+inherit = bar/base
+modules-left = bspwm
+modules-center = date 
+modules-right = xkeyboard backlight pulseaudio wifi ethernet bluetooth temperature battery 
+wm-restack = bspwm
+
+[module/i3]
+type = internal/i3
+
+format = <label-state> <label-mode>
+
+pin-workspaces = false
+strip-wsnumbers = true
+index-sort = true
+
+enable-click = true
+
+enable-scroll = false
+wrapping-scroll = false
+reverse-scroll = true
+
+label-mode-padding = 1
+label-mode-foreground = ${colors.background}
+label-mode-background = ${colors.alert}
+
+; focused = Active workspace on focused monitor
+label-focused = %name%
+label-focused-underline = ${colors.primary}
+label-focused-padding = 1
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %name%
+label-unfocused-padding = 1
+
+; visible = Active workspace on unfocused monitor
+label-visible = %name%
+label-visible-underline = ${colors.background}
+label-visible-padding = 1
+
+; urgent = Workspace with urgency hint set
+label-urgent = %name%
+label-urgent-underline = ${colors.alert}
+label-urgent-padding = 1
+
+[module/bspwm]
+type = internal/bspwm
+
+pin-workspaces = false
+inline-mode = false
+enable-click = true
+enable-scroll = false
+reverse-scroll = false
+fuzzy-match = true
+
+format = <label-state> <label-mode>
+
+label-monitor = %name%
+
+label-focused = %name%
+label-focused-background = ${colors.primary}
+
+label-occupied = %name%
+label-occupied-underline = ${colors.primary}
+
+label-urgent = %name%
+label-urgent-underline = ${colors.alert}
+
+label-empty = %name%
+label-empty-underline = ${colors.background}
+
+label-separator = 
+label-separator-padding = 2
+
+[module/xwindow]
+type = internal/xwindow
+label = %title%
+label-maxlen = 72
+format-padding = 1
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+[module/xkeyboard]
+type = internal/xkeyboard
+
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+
+format = <label-layout><label-indicator>
+format-background = ${colors.background}
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground}
+format-padding = 1
+
+label-layout = %name%
+
+label-indicator-on-capslock = " CAPS LOCK"
+label-indicator-on-background = ${self.format-background}
+
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+enable-scroll = true
+format = <label> 
+format-prefix = " "
+label = %percentage%%
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <ramp-volume> <label-volume> 
+label-volume = %percentage%%
+label-volume-foreground = ${root.foreground}
+
+label-muted = 婢 MUTED
+label-muted-foreground = ${root.foreground}
+
+ramp-volume-0 = "奄"
+ramp-volume-1 = "奔"
+ramp-volume-2 = "墳"
+
+[module/wifi]
+type = internal/network
+interface = wlp3s0
+interval = 2.5
+
+format-connected = <label-connected>
+format-connected-prefix = "  "
+label-connected = %essid% %signal%%
+
+format-disconnected = <label-disconnected>
+format-disconnected-prefix = " "
+label-disconnected = DISCONNECTED
+
+[module/ethernet]
+type = internal/network
+interface = enp2s0
+interval = 2.5
+
+format-connected = <label-connected>
+format-connected-prefix = " "
+label-connected = %local_ip%
+
+format-disconnected =
+
+[module/bluetooth]
+type = custom/script
+exec = $POLYBAR_SCRIPTS/polybar-scripts/system-bluetooth-bluetoothctl/system-bluetooth-bluetoothctl.sh
+tail = true
+format-prefix = " "
+interval = 1
+click-left = rofi-bluetooth &
+
+[module/memory]
+type = internal/memory
+interval = 2.5
+format = <label> 
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground}
+label = %percentage_used%%
+
+[module/cpu]
+type = internal/cpu
+interval = 2.5
+format-prefix = "﬙ "
+format-prefix-foreground = ${colors.foreground}
+label = %percentage%%
+
+[module/temperature]
+type = internal/temperature
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
+interval = 2.5
+thermal-zone = 0
+base-temperature = 20
+warn-temperature = 85
+
+format = <ramp> <label>
+
+format-warn = <ramp> <label-warn>
+format-warn-background = ${colors.alert}
+
+label = %temperature-c%
+label-warn = %temperature-c%
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+
+[module/battery]
+type = internal/battery
+poll-interval = 5
+
+battery = BAT0
+adapter = AC
+full-at = 98
+
+format-discharging = <ramp-capacity> <label-discharging>
+label-discharging = %percentage%% %time%
+
+format-charging = <label-charging>
+format-charging-prefix = " "
+label-charging = %percentage%%
+
+format-full = <label-full>
+format-full-prefix = " "
+label-full = FULL
+
+ramp-capacity-0 = " "
+ramp-capacity-1 = " "
+ramp-capacity-2 = " "
+ramp-capacity-3 = " "
+
+[module/date]
+type = internal/date
+interval = 1
+
+time = "%H:%M"
+date = "%d/%m"
+
+
+label =  %date% -  %time%
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+; vim:ft=dosini

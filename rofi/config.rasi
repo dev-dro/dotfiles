@@ -1,0 +1,25 @@
+configuration {
+  bw: 0;
+  disable-history: true;
+  font: "DejaVu Sans Mono 12px";
+  hide-scrollbar: true;
+  line-margin: 0;
+  line-padding: 5;
+  lines: 3;
+  location: 1;
+  matching: "normal";
+  modi: "run,drun,window,ssh";
+  padding: 5;
+  separator-style: none;
+  show-icons: false;
+  width: 100;
+
+  /* State      BG        FG       BG ALT   HL BG    HL FG */
+  color-normal: "#2E3440, #D8DEE9, #2E3440, #434C5E, #E5E9F0";
+  color-urgent: "#2E3440, #D8DEE9, #2E3440, #434C5E, #E5E9F0";
+  color-active: "#2E3440, #D8DEE9, #2E3440, #434C5E, #E5E9F0";
+  /*            BG        BORDER   SEPARATOR */
+  color-window: "#2E3440, #2E3440, #4C566A";
+}
+
+/* vim:ft=css
