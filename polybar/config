@@ -53,52 +53,14 @@ cursor-scroll = ns-resize
 inherit = bar/base
 modules-left = i3 
 modules-center = 
-modules-right = xkeyboard backlight pulseaudio wifi ethernet bluetooth memory cpu temperature battery date 
+modules-right = xkeyboard backlight pulseaudio wifi ethernet memory cpu temperature battery date 
 
 [bar/bspwm-bar]
 inherit = bar/base
-modules-left = bspwm
+modules-left = bspwm xwindow
 modules-center = date 
-modules-right = xkeyboard backlight pulseaudio wifi ethernet bluetooth temperature battery 
+modules-right = xkeyboard backlight pulseaudio wifi ethernet temperature battery 
 wm-restack = bspwm
-
-[module/i3]
-type = internal/i3
-
-format = <label-state> <label-mode>
-
-pin-workspaces = false
-strip-wsnumbers = true
-index-sort = true
-
-enable-click = true
-
-enable-scroll = false
-wrapping-scroll = false
-reverse-scroll = true
-
-label-mode-padding = 1
-label-mode-foreground = ${colors.background}
-label-mode-background = ${colors.alert}
-
-; focused = Active workspace on focused monitor
-label-focused = %name%
-label-focused-underline = ${colors.primary}
-label-focused-padding = 1
-
-; unfocused = Inactive workspace on any monitor
-label-unfocused = %name%
-label-unfocused-padding = 1
-
-; visible = Active workspace on unfocused monitor
-label-visible = %name%
-label-visible-underline = ${colors.background}
-label-visible-padding = 1
-
-; urgent = Workspace with urgency hint set
-label-urgent = %name%
-label-urgent-underline = ${colors.alert}
-label-urgent-padding = 1
 
 [module/bspwm]
 type = internal/bspwm
@@ -132,7 +94,8 @@ label-separator-padding = 2
 [module/xwindow]
 type = internal/xwindow
 label = %title%
-label-maxlen = 72
+label-maxlen = 50
+format-prefix = "  "
 format-padding = 1
 
 [module/mpd]

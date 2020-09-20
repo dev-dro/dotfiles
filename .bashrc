@@ -27,6 +27,8 @@ alias fgrep='fgrep --color=auto'
 alias df='df -h'
 alias du='du -c -h'
 
+alias ping='ping -c 3'
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -42,7 +44,7 @@ alias lt='ll -t --reverse' # sort by time
 alias mkdir='mkdir -p -v'
 alias cp='cp -i -r'
 alias mv='mv -i'
-alias rm='rm -I -r'
+alias rm='rm --preserve-root --interactive=once -r'
 alias ln='ln -i'
 
 alias chown='chown --preserve-root'
@@ -61,3 +63,7 @@ alias pacqe='sudo pacman --query --explicit'
 alias ex='atool -x'
 alias calc='qalc'
 
+
+# tabtab source for jhipster package
+# uninstall by removing these lines or running `tabtab uninstall jhipster`
+[ -f /home/dev-dro/Work/invoiceti/code/finpesweb_angular4/node_modules/tabtab/.completions/jhipster.bash ] && . /home/dev-dro/Work/invoiceti/code/finpesweb_angular4/node_modules/tabtab/.completions/jhipster.bash

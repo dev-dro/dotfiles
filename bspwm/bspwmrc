@@ -2,20 +2,19 @@
 
 # autostart
 sxhkd &
-xss-lock --transfer-sleep-lock -- i3lock --blur 5 clock &
-picom -b
+xss-lock --transfer-sleep-lock -- slock &
 unclutter &
 bash ~/.fehbg &
 clipmenud &
 bash ~/Scripts/polybar/bspwm-polybar.sh
-dropbox &
+dropbox start &
 
 # workspaces
 # single monitor
 bspc monitor -d ' MAIN ' ' CODE ' ' TOOL ' ' PLAY ' ' GAME ' ' VIRT ' ' FILE ' ' CONF ' ' CHAT ' ' WORK ' 
 # dual monitor
-#bspc monitor eDP-1 -d ' MAIN ' ' CODE ' ' TOOL ' ' PLAY ' ' GAME '
-#bspc monitor DP-1 -d ' VIRT ' ' FILE ' ' CONF ' ' CHAT ' ' WORK '
+# bspc monitor eDP-1 -d ' MAIN ' ' CODE ' ' TOOL ' ' PLAY ' ' GAME '
+# bspc monitor DP-1 -d ' VIRT ' ' FILE ' ' CONF ' ' CHAT ' ' WORK '
 
 bspc config border_width        1
 bspc config window_gap          5

@@ -7,6 +7,8 @@ from libqtile.utils import guess_terminal
 from libqtile.dgroups import simple_key_binder
 
 mod = "mod4"
+alt = "mod1"
+
 extension_defaults = dict(
     background = "#3B4252",
     foreground = "#D8DEE9",
@@ -18,8 +20,8 @@ extension_defaults = dict(
 
 keys = [
     # Switch focus
-    Key([mod], "h", lazy.layout.left()),
-    Key([mod], "j", lazy.layout.down()),
+    Key([mod], "h", lazy.layout.left(), lazy.layout.previous()),
+    Key([mod], "j", lazy.layout.down(), lazy.layout.next()),
     Key([mod], "k", lazy.layout.up()),
     Key([mod], "l", lazy.layout.right()),
 
@@ -61,21 +63,21 @@ keys = [
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
 
     # brightness
-    Key([], "XF86MonBrightnessUp", lazy.spwan("light -A 5")),
+    Key([], "XF86MonBrightnessUp", lazy.spwan("mute-toggle")),
     Key([], "XF86MonBrightnessDown", lazy.spwan("light -U 5")),
     Key(["control"], "XF86MonBrightnessUp", lazy.spwan("light -S 100")),
     Key(["control"], "XF86MonBrightnessDown", lazy.spwan("light -S 5")),
 
     # screeshots
-    Key([], "Print", lazy.spawn("maim -s ~/Pictures/screenshots/$(date +%Y-%m-%d-%T).png")),
-    Key(["shift"], "Print", lazy.spawn("maim -s | xclip -selection clipboard -t image/png")),
+    Key([], "Print", lazy.spawn('maim -s "/home/dev-dro/Pictures/screenshots/$(date +%Y-%m-%d-%T).png"')),
+    Key(["shift"], "Print", lazy.spawn('maim -s | xclip -selection clipboard -t image/png')),
 
     Key([mod], "Return", lazy.spawn("alacritty")),
     Key([mod], "r", lazy.spawn("alacritty -e ranger")),
     Key([mod], "v", lazy.spawn("alacritty -e nvim")),
-    Key([mod], "space", lazy.run_extension(extension.J4DmenuDesktop(**extension_defaults))),
-    Key([mod], "c", lazy.run_extension(extension.Dmenu(dmenu_command = "clipmenu", **extension_defaults))),
-    Key([mod], "p", lazy.run_extension(extension.Dmenu(dmenu_command = "passmenu", **extension_defaults))),
+    Key([mod], "space", lazy.spawn("rofi -show drun")),
+    Key([mod], "c", lazy.spawn("clipmenu")),
+    Key([mod], "p", lazy.spawn("passmenu")),
     Key([mod], "q", lazy.run_extension(extension.CommandSet(commands = {
         'lock': 'slock',
         'suspend': 'systemctl suspend',
@@ -142,10 +144,6 @@ bar_groups = [
     widget.TextBox("", **widget_defaults),
     widget.WindowName(300, **widget_defaults, for_current_screen = True),
 
-    widget.Sep(**sep_defaults),
-    widget.TextBox("", **widget_defaults),
-    widget.Prompt(**widget_defaults),
-
     widget.Spacer(bar.STRETCH),
 ]
 
@@ -164,7 +162,7 @@ bar_notification = [
                    update_interval = 15, notify_below = 0.1),
     widget.Sep(**sep_defaults),
     widget.TextBox("", **widget_defaults),
-    widget.Clock(**widget_defaults, format = '%c'),
+    widget.Clock(**widget_defaults, format = '%a %d %b %Y %H:%M:%S'),
 ]
 
 main_screen = Screen(top = bar.Bar(
