@@ -20,8 +20,8 @@ extension_defaults = dict(
 
 keys = [
     # Switch focus
-    Key([mod], "h", lazy.layout.left(), lazy.layout.previous()),
-    Key([mod], "j", lazy.layout.down(), lazy.layout.next()),
+    Key([mod], "h", lazy.layout.left()),
+    Key([mod], "j", lazy.layout.down()),
     Key([mod], "k", lazy.layout.up()),
     Key([mod], "l", lazy.layout.right()),
 
@@ -42,14 +42,23 @@ keys = [
     Key([mod], "bracketright", lazy.next_screen()),
 
     # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc = "Toggle between layouts"),
-    Key([mod, "shift"], "Tab", lazy.prev_layout(), desc = "Toggle between layouts"),
+    Key([mod], "t", lazy.group.setlayout('monadtall')),
+    Key([mod], "y", lazy.group.setlayout('monadwide')),
+    Key([mod], "m", lazy.group.setlayout('max')),
     Key([mod], "s", lazy.window.toggle_floating(), desc = "Toggle floating"),
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc = "Toggle fullscreen"),
     Key([mod], "w", lazy.window.kill(), desc = "Kill focused window"),
 
     Key([mod, "control"], "r", lazy.restart(), desc = "Restart qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc = "Shutdown qtile"),
+
+    # brightness
+    Key([], "XF86MonBrightnessUp", lazy.spawn("light -A 5")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("light -U 5")),
+    Key(["shift"], "XF86MonBrightnessUp", lazy.spawn("light -A 20")),
+    Key(["shift"], "XF86MonBrightnessDown", lazy.spawn("light -U 20")),
+    Key(["control"], "XF86MonBrightnessUp", lazy.spawn("light -S 75")),
+    Key(["control"], "XF86MonBrightnessDown", lazy.spawn("light -S 25")),
 
     # volume
     Key([], "XF86AudioMute", lazy.spawn("mute-toggle")),
@@ -62,15 +71,8 @@ keys = [
     Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
 
-    # brightness
-    Key([], "XF86MonBrightnessUp", lazy.spwan("mute-toggle")),
-    Key([], "XF86MonBrightnessDown", lazy.spwan("light -U 5")),
-    Key(["control"], "XF86MonBrightnessUp", lazy.spwan("light -S 100")),
-    Key(["control"], "XF86MonBrightnessDown", lazy.spwan("light -S 5")),
-
     # screeshots
-    Key([], "Print", lazy.spawn('maim -s "/home/dev-dro/Pictures/screenshots/$(date +%Y-%m-%d-%T).png"')),
-    Key(["shift"], "Print", lazy.spawn('maim -s | xclip -selection clipboard -t image/png')),
+    Key([], "Print", lazy.spawn('screenshot')),
 
     Key([mod], "Return", lazy.spawn("alacritty")),
     Key([mod], "r", lazy.spawn("alacritty -e ranger")),
@@ -101,7 +103,9 @@ groups = [
 ]
 
 dgroups_key_binder = simple_key_binder("mod4")
-dgroups_app_rules = []  # type: List
+dgroups_app_rules = [
+    Rule(Match(title=["Welcome to IntelliJ IDEA"]), group = " CODE ", float = True, break_on_match = False)
+]  # type: List
 
 layout_defaults = dict(
         border_focus = "#434c5e",
@@ -112,8 +116,27 @@ layout_defaults = dict(
 
 layouts = [
     layout.MonadTall(align = layout.MonadTall._left, **layout_defaults),
+    layout.MonadWide(align = layout.MonadTall._left, **layout_defaults),
     layout.Max(**layout_defaults),
 ]
+
+floating_layout = layout.Floating(**layout_defaults, float_rules = [
+    # Run the utility of `xprop` to see the wm class and name of an X client.
+    {'wmclass': 'confirm'},
+    {'wmclass': 'dialog'},
+    {'wmclass': 'download'},
+    {'wmclass': 'error'},
+    {'wmclass': 'file_progress'},
+    {'wmclass': 'notification'},
+    {'wmclass': 'splash'},
+    {'wmclass': 'toolbar'},
+    {'wmclass': 'confirmreset'},  # gitk
+    {'wmclass': 'makebranch'},  # gitk
+    {'wmclass': 'maketag'},  # gitk
+    {'wname': 'branchdialog'},  # gitk
+    {'wname': 'pinentry'},  # GPG key password entry
+    {'wmclass': 'ssh-askpass'},  # ssh-askpass
+])
 
 widget_defaults = dict(
     font = 'DejaVuSansMono Nerd Font',
@@ -187,27 +210,10 @@ mouse = [
 
 main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = True
-bring_front_click = False
+bring_front_click = True
 cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-floating_layout = layout.Floating(float_rules = [
-    # Run the utility of `xprop` to see the wm class and name of an X client.
-    {'wmclass': 'confirm'},
-    {'wmclass': 'dialog'},
-    {'wmclass': 'download'},
-    {'wmclass': 'error'},
-    {'wmclass': 'file_progress'},
-    {'wmclass': 'notification'},
-    {'wmclass': 'splash'},
-    {'wmclass': 'toolbar'},
-    {'wmclass': 'confirmreset'},  # gitk
-    {'wmclass': 'makebranch'},  # gitk
-    {'wmclass': 'maketag'},  # gitk
-    {'wname': 'branchdialog'},  # gitk
-    {'wname': 'pinentry'},  # GPG key password entry
-    {'wmclass': 'ssh-askpass'},  # ssh-askpass
-])
 
 # for java apps to function
 wmname = "LG3D"
@@ -221,4 +227,10 @@ def autostart():
 
 @hook.subscribe.screen_change
 def restart_on_randr(event):
-    libqtile.qtile.cmd_restart()
+    qtile.cmd_restart()
+
+@hook.subscribe.client_new
+def floating_size_hints(window):
+    hints = window.window.get_wm_normal_hints()
+    if hints and 0 < hints['max_width'] < 1000:
+        window.floating = True
