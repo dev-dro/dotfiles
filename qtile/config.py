@@ -105,7 +105,7 @@ groups = [
 dgroups_key_binder = simple_key_binder("mod4")
 dgroups_app_rules = [
     Rule(Match(title=["Welcome to IntelliJ IDEA"]), group = " CODE ", float = True, break_on_match = False)
-]  # type: List
+]
 
 layout_defaults = dict(
         border_focus = "#434c5e",

@@ -9,6 +9,8 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export BROWSER="firefox-developer-edition"
 
+export CM_LAUNCHER="rofi"
+
 export QT_STYLE_OVERRIDE="kvantum-dark"
 
 export SCRIPTS_HOME="${HOME}/.scripts"

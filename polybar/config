@@ -1,10 +1,9 @@
 [colors]
-background = #2E3440
+background = #3B4252
 foreground = #D8DEE9
 
-primary = #3B4252
 secondary = #434C5E
-tertiary = #4C566A
+primary = #4C566A
 alert = #81A1C1
 
 [bar/base]
@@ -88,22 +87,9 @@ label-separator-padding = 0
 [module/xwindow]
 type = internal/xwindow
 label = %title%
-label-maxlen = 300
+label-maxlen = 100
 format-prefix = "  "
 format-padding = 1
-
-[module/mpd]
-type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
-label-song-maxlen = 25
-label-song-ellipsis = true
 
 [module/xkeyboard]
 type = internal/xkeyboard
