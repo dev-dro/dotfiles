@@ -1,7 +1,7 @@
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, hook, extension
-from libqtile.config import Click, Drag, Group, Key, Screen, ScratchPad, DropDown
+from libqtile.config import Click, Drag, Group, Key, Screen, ScratchPad, DropDown, Match
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.dgroups import simple_key_binder
@@ -91,7 +91,7 @@ keys = [
 
 groups = [
     Group(" MAIN "),
-    Group(" CODE "),
+    Group(" CODE ", matches=[Match(wm_class=["IntelliJ"])]),
     Group(" TOOL "),
     Group(" PLAY "),
     Group(" GAME "),
@@ -103,9 +103,7 @@ groups = [
 ]
 
 dgroups_key_binder = simple_key_binder("mod4")
-dgroups_app_rules = [
-    Rule(Match(title=["Welcome to IntelliJ IDEA"]), group = " CODE ", float = True, break_on_match = False)
-]
+dgroups_app_rules = []
 
 layout_defaults = dict(
         border_focus = "#434c5e",

@@ -7,7 +7,9 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'arcticicestudio/nord-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-sensible',
 Plug 'tpope/vim-repeat',
@@ -29,6 +31,8 @@ set smartindent expandtab tabstop=4 softtabstop=4 shiftwidth=4
 set undodir=~/.vim/undodir
 set undofile
 
+set grepprg=rg\ --vimgrep\ --smart-case\ --follow
+
 colorscheme nord
 
 " CoC
@@ -42,3 +46,10 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" fzf
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <Leader>b :Buffers<CR>
+nnoremap <silent> <Leader>f :Rg<CR>
+nnoremap <silent> <Leader>' :Marks<CR>
+

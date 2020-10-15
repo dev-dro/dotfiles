@@ -34,4 +34,4 @@ fi
 
 export AWT_TOOLKIT=MToolkit
 
-exec awesome
+exec qtile
