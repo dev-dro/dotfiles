@@ -17,6 +17,7 @@ unset normal_text prompt_text git_text
 
 ## aliases
 alias vi='vim'
+alias vim='nvim'
 alias svim='sudoedit'
 alias diff='vimdiff'
 
