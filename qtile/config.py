@@ -21,7 +21,7 @@ extension_defaults = dict(
 keys = [
     # Switch focus
     Key([mod], "h", lazy.layout.left()),
-    Key([mod], "j", lazy.layout.down()),
+    Key([mod], "j", lazy.layout.next()),
     Key([mod], "k", lazy.layout.up()),
     Key([mod], "l", lazy.layout.right()),
 
@@ -79,7 +79,7 @@ keys = [
     Key([mod], "v", lazy.spawn("alacritty -e nvim")),
     Key([mod], "space", lazy.spawn("rofi -show drun")),
     Key([mod], "c", lazy.spawn("clipmenu")),
-    Key([mod], "p", lazy.spawn("passmenu")),
+    Key([mod], "p", lazy.spawn("bwmenu")),
     Key([mod], "q", lazy.run_extension(extension.CommandSet(commands = {
         'lock': 'slock',
         'suspend': 'systemctl suspend',
@@ -91,10 +91,10 @@ keys = [
 
 groups = [
     Group(" MAIN "),
-    Group(" CODE ", matches=[Match(wm_class=["IntelliJ"])]),
+    Group(" CODE ", matches=[Match(wm_class=["jetbrains-idea"])]),
     Group(" TOOL "),
-    Group(" PLAY "),
-    Group(" GAME "),
+    Group(" PLAY ", matches=[Match(wm_class=["spotify", "pocket-casts-linux"])]),
+    Group(" GAME ", matches=[Match(wm_class=["Steam", "FantasyGrounds.x86_64"])]),
     Group(" VIRT "),
     Group(" FILE "),
     Group(" CONF "),
@@ -156,6 +156,11 @@ bar_defaults = dict(
 )
 
 bar_groups = [
+    widget.Sep(**sep_defaults),
+    widget.Image(**widget_defaults, filename = "~/.config/qtile/icon.png",
+                 mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn("rofi -show drun")}),
+
+    widget.Sep(**sep_defaults),
     widget.GroupBox(**widget_defaults, highlight_method = "block", borderwidth = 0, rounded = False, spacing = 0,
                     active = "#D8DEE9", inactive = "#D8DEE9", urgent_border = "#BF616A", urgent_text = "#D8DEE9",
                     this_current_screen_border = "#4C566A", this_screen_border = "#4C566A",
@@ -163,9 +168,7 @@ bar_groups = [
 
     widget.Sep(**sep_defaults),
     widget.TextBox("", **widget_defaults),
-    widget.WindowName(300, **widget_defaults, for_current_screen = True),
-
-    widget.Spacer(bar.STRETCH),
+    widget.WindowName(width = bar.STRETCH, **widget_defaults, for_current_screen = True),
 ]
 
 bar_notification = [
@@ -184,14 +187,16 @@ bar_notification = [
     widget.Sep(**sep_defaults),
     widget.TextBox("", **widget_defaults),
     widget.Clock(**widget_defaults, format = '%a %d %b %Y %H:%M:%S'),
+
+    widget.Sep(**sep_defaults),
 ]
 
 main_screen = Screen(top = bar.Bar(
-    [*bar_groups, widget.Systray(**widget_defaults, icon_size = 16), *bar_notification], 24, **bar_defaults
+    [*bar_groups, *bar_notification], 24, **bar_defaults
 ))
 
 hdmi_screen = Screen(top = bar.Bar(
-    [*bar_groups, widget.Spacer(bar.STRETCH), *bar_notification], 24, **bar_defaults
+    [*bar_groups, *bar_notification], 24, **bar_defaults
 ))
 
 if (True):
@@ -208,7 +213,7 @@ mouse = [
 
 main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = True
-bring_front_click = True
+bring_front_click = False
 cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -230,5 +235,5 @@ def restart_on_randr(event):
 @hook.subscribe.client_new
 def floating_size_hints(window):
     hints = window.window.get_wm_normal_hints()
-    if hints and 0 < hints['max_width'] < 1000:
+    if hints and 0 < hints['max_width'] < 960:
         window.floating = True

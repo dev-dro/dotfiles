@@ -67,4 +67,4 @@ alias calc='qalc'
 
 # tabtab source for jhipster package
 # uninstall by removing these lines or running `tabtab uninstall jhipster`
-[ -f /home/dev-dro/Work/invoiceti/code/finpesweb_angular4/node_modules/tabtab/.completions/jhipster.bash ] && . /home/dev-dro/Work/invoiceti/code/finpesweb_angular4/node_modules/tabtab/.completions/jhipster.bash
+[ -f /home/dev-dro/Code/invoice-ti/finpesweb_angular4/node_modules/tabtab/.completions/jhipster.bash ] && . /home/dev-dro/Code/invoice-ti/finpesweb_angular4/node_modules/tabtab/.completions/jhipster.bash
