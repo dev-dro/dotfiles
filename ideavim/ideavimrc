@@ -1,14 +1,3 @@
-set colorcolumn=120
 set incsearch smartcase
-set hidden
-set listchars=tab:▸\ ,eol:¬
-set nobackup nowritebackup
-set noerrorbells
-set noswapfile
 set nowrap
 set number relativenumber
-set smartindent expandtab tabstop=2 softtabstop=2 shiftwidth=2
-set undodir=~/.vim/undodir
-set undofile
-
-colorscheme nord

@@ -80,6 +80,8 @@ keys = [
     Key([mod], "space", lazy.spawn("rofi -show drun")),
     Key([mod], "c", lazy.spawn("clipmenu")),
     Key([mod], "p", lazy.spawn("bwmenu")),
+    Key([mod], "p", lazy.spawn("bwmenu")),
+    Key([mod], "o", lazy.spawn("rofi -show calc -modi calc -no-show-match -no-sort")),
     Key([mod], "q", lazy.run_extension(extension.CommandSet(commands = {
         'lock': 'slock',
         'suspend': 'systemctl suspend',
