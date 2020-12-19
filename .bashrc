@@ -4,6 +4,10 @@ source "/usr/share/doc/pkgfile/command-not-found.bash"
 source "/usr/share/git/completion/git-completion.bash"
 source "/usr/share/git/completion/git-prompt.sh"
 
+## asdf
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
 ## prompts
 normal_text="\[$(tput sgr0)\]"
 prompt_text="\[$(tput bold ; tput setaf 4)\]"
