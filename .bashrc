@@ -20,8 +20,8 @@ PS2="${prompt_text} > ${normal_text}"
 unset normal_text prompt_text git_text
 
 ## aliases
-alias vi='vim'
 alias vim='nvim'
+alias vi='nvim'
 alias svim='sudoedit'
 alias diff='vimdiff'
 
@@ -34,14 +34,10 @@ alias du='du -c -h'
 
 alias ping='ping -c 3'
 
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-
 alias ls='ls --human-readable --classify --color=auto --group-directories-first'
 alias lr='ls --recursive'
-alias ll='ls -l --almost-all'
+alias ll='ls -l'
+alias la='ll --almost-all'
 alias lx='ll -X --ignore-backups' # sort by extension
 alias lz='ll -S --reverse' # sort by size
 alias lt='ll -t --reverse' # sort by time
@@ -59,16 +55,8 @@ alias chgrp='chgrp --preserve-root'
 alias :q='exit'
 alias :x='exit'
 
-alias pacman='sudo pacman --color=auto'
-alias pacsyu='sudo pacman --sync --refresh --sysupgrade'
-alias pacrns='sudo pacman --remove --nosave --recursive --recursive'
-alias pacss='sudo pacman --sync --search'
-alias pacqe='sudo pacman --query --explicit'
-
-alias ex='atool -x'
-alias calc='qalc'
-
+alias pacman='pacman --color=auto'
 
 # tabtab source for jhipster package
 # uninstall by removing these lines or running `tabtab uninstall jhipster`
-[ -f /home/dev-dro/Code/invoice-ti/finpesweb_angular4/node_modules/tabtab/.completions/jhipster.bash ] && . /home/dev-dro/Code/invoice-ti/finpesweb_angular4/node_modules/tabtab/.completions/jhipster.bash
+[ -f /home/dev-dro/Code/invoice-ti/finpesweb-desenvolvimento/node_modules/tabtab/.completions/jhipster.bash ] && . /home/dev-dro/Code/invoice-ti/finpesweb-desenvolvimento/node_modules/tabtab/.completions/jhipster.bash
