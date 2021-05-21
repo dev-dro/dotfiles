@@ -4,10 +4,6 @@ source "/usr/share/doc/pkgfile/command-not-found.bash"
 source "/usr/share/git/completion/git-completion.bash"
 source "/usr/share/git/completion/git-prompt.sh"
 
-## asdf
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-
 ## prompts
 normal_text="\[$(tput sgr0)\]"
 prompt_text="\[$(tput bold ; tput setaf 4)\]"
@@ -18,6 +14,10 @@ ${prompt_text} \$ ${normal_text}"
 PS2="${prompt_text} > ${normal_text}"
 
 unset normal_text prompt_text git_text
+
+## asdf-vm
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
 
 ## aliases
 alias vim='nvim'
